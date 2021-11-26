@@ -1,78 +1,83 @@
-# Arkanoid
+# Arkanoid 打磚塊
 
-## Overview
+## 概觀
 
 <img src="https://i.imgur.com/brqaW85.gif" height="500"/>
 
-At the beginning of a round, you could decide where to serve the ball by moving the platform, and the serving direction can be also decided. Try to catch the ball and break all the bricks.
+回合一開始，可以決定發球的位置與方向。發球後嘗試接到回彈的球，並打掉所有磚塊。
 
-There are two difficulties. The `EASY` one is a simple arkanoid game, and the ball slicing mechanism is added in the `NORMAL` one, which the ball speed will be changed according to the movement of the platform. In some game level, there are "red" bricks that can be broken by hitting them twice. However, on the `NORMAL` difficulty, these red bricks can be broken by hitting them only once by speeding up the ball with the mechanism of ball slicing.
+打磚塊有兩個難度：簡單與普通，在普通難度中會加入切球的機制，可以在板子接球的時候，藉由移動板子來改變球的速度或方向。在一些關卡內有紅色的硬磚塊，需要打兩次才能被破壞，但是透過切球來加速球的移動速度，則可以打一次就破壞該磚塊。
 
-## Execution
+如果連續50次打不到任何磚塊，遊戲結果會顯示`過關`。
 
-* Manual mode: `python MLGame.py -m arkanoid <difficulty> <level_id>`
-    * Serve the ball to the left/right: `A`, `D`
-    * Move the platform: `left`, `right` arrow key
-* ML mode: `python MLGame.py -i ml_play_template.py arkanoid <difficulty> <level_id>`
+## 執行
 
-### Game Parameters
+* 手動模式：`python MLGame.py -m arkanoid <difficulty> <level_id>`
+    * 發球：左邊/右邊：`A` / `D`
+    * 移動板子：左右方向鍵
+* 機器學習模式：`python MLGame.py -i ml_play_template.py arkanoid <difficulty> <level_id>`
 
-* `difficulty`: The game style.
-    * `EASY`: The simple arkanoid game.
-    * `NORMAL`: The ball slicing mechanism is added.
-* `level_id`: Specify the level map. The available values can be checked in `game/level_data/` directory.
+### 遊戲參數
 
-## Detailed Game Information
+* `difficulty`：遊戲難度
+    * `EASY`：簡單的打磚塊遊戲
+    * `NORMAL`：加入切球機制
+* `level_id`：指定關卡地圖。可以指定的關卡地圖皆在 `game/level_data/` 裡
 
-### Game Coordinate
+## 詳細遊戲資訊
 
-Use the coordinate system of pygame. The origin is at the top left corner of the game area, the positive direction of the x-axis is towards the right, and the positive direction of y-axis is downwards. The given coordinate of game objects is at the top left corner of the object, not at the middle of it.
+### 座標系
 
-### Game Area
+使用 pygame 的座標系統，原點在遊戲區域的左上角，x 正方向為向右，y 正方向為向下。遊戲物件的座標皆在物件的左上角，並非中心點。
 
-200 \* 500 pixels
+### 遊戲區域
 
-### Game Objects
+200 \* 500 像素
 
-#### Ball
+### 遊戲物件
 
-* The ball is a 5-by-5-pixel blue square.
-* The moving speed is (&plusmn;7, &plusmn;7) pixels per frame.
-* The ball is served from the platform, and it can be served to the left or right. If the ball is not served in 150 frames, it will be automatically served to the random direction.
+#### 球
 
-#### Platform
+* 5 \* 5 像素的藍色方形
+* 每一影格的移動速度是 (&plusmn;7, &plusmn;7)
+* 球會從板子所在的位置發出，可以選擇往左或往右發球。
+* 如果在 150 影格內沒有發球，則會自動往隨機兩個方向發球
 
-* The platform is a 40-by-5-pixel green rectangle.
-* The moving speed is (&plusmn;5, 0) pixels per frame.
-* The initial position is at (75, 400).
+#### 板子
 
-#### Ball Slicing Mechanism
+* 40 \* 5 像素的綠色長方形
+* 每一影格的移動速度是 (&plusmn;5, 0)
+* 初始位置在 (75, 400)
 
-The x speed of the ball can be changed while caught by the platform:
+#### 切球機制
 
-* If the platform moves in the same direction of the ball, the x speed of the ball is increased to &plusmn;10, which is a fast ball.
-* If the platform is stable, the x speed of the ball is reset to &plusmn;7.
-* If the platform moves in the opposite direction of the ball, the ball will be hit back to the direction where it comes from, and the x speed is &plusmn;7.
+球的 x 方向速度會因為接球時板子的移動方向而改變：
 
-The mechanism is added on the `NORMAL` difficulty.
+* 如果板子與球的移動方向相同，則球的 x 方向速度會增為 &plusmn;10，可以一次打掉硬磚塊
+* 如果板子不動，則球的 x 方向速度會回復為 &plusmn;7
+* 如果板子與球的移動方向相反，則球會被打回原來來的方向，速度會回復為 &plusmn;7
 
-#### Brick
+此機制加入在普通難度中。
 
-* The brick is a 25-by-10-pixel orange rectangle.
-* Its position is decided by the level map file.
+#### 磚塊
 
-#### Hard Bricks
+* 25 \* 10 的橘色長方形
+* 其位置由關卡地圖決定
 
-* The hard brick is similar to the normal brick, but its color is red.
-* The hard brick can be broken by hitting it twice. If it is hit once, it will become a normal brick. But it can be broken by hitting it only once with the fast ball.
+#### 硬磚塊
 
-## Communicate with Game
+* 與磚塊類似，但是紅色的
+* 硬磚塊要被打兩次才會被破壞。其被球打一次後，會變為一般磚塊。但是如果被加速後的球打到，則可以直接被破壞
 
-### Communication Objects
+## 撰寫玩遊戲的程式
 
-#### Scene Information
+範例程式碼在 [`ml_play_template.py`](./ml/ml_play_template.py)。
 
-A dictionary object sent from the game process.
+### 溝通物件
+
+#### 場景資訊
+
+從遊戲端接受到的字典物件。
 
 ```
 {
@@ -85,53 +90,65 @@ A dictionary object sent from the game process.
 }
 ```
 
-The keys and values of the scene information:
+該字典物件的鍵值對應：
 
-* `"frame"`: An integer, The number of the frame that this scene information is for
-* `"status"`: A string. The game status at this frame. It's one of the following value:
-    * `"GAME_ALIVE"`: The game is still going.
-    * `"GAME_PASS"`: All the bricks are broken.
-    * `"GAME_OVER"`: The platform can't catch the ball.
-* `"ball"`: An `(x, y)` tuple. The position of the ball.
-* `"platform"`: An `(x, y)` tuple. The position of the platform.
-* `"bricks"`: A list storing the position of remaining normal bricks (including the hard bricks that are hit once). All elements are `(x, y)` tuples.
-* `"hard_bricks"`: A list storing the position of remaining hard bricks. All elements are `(x, y)` tuples.
+* `"frame"`：整數。紀錄的是第幾影格的場景資訊。
+* `"status"`：字串。目前的遊戲狀態，會是以下值的其中之一：
+    * `"GAME_ALIVE"`：遊戲進行中
+    * `"GAME_PASS"`：所有磚塊都被破壞
+    * `"GAME_OVER"`：平台無法接到球
+* `"ball"`：`(x, y)` tuple。球的位置。
+* `"platform"`：`(x, y)` tuple。平台的位置。
+* `"bricks"`：為一個 list，裡面每個元素皆為 `(x, y)` tuple。剩餘的普通磚塊的位置，包含被打過一次的硬磚塊。
+* `"hard_bricks"`：為一個 list，裡面每個元素皆為 `(x, y)` tuple。剩餘的硬磚塊位置。
 
-#### Game Command
+#### 遊戲指令
 
-A string command sent to the game process for controlling the movement of the platform.
+傳給遊戲端，用來控制平台的移動的字串。
 
 ```
 'MOVE_LEFT'
 ```
 
-Here are the available commands:
+可用的指令有：
 
-* `"SERVE_TO_LEFT"`: Serve the ball to the left
-* `"SERVE_TO_RIGHT"`: Serve the ball to the right
-* `"MOVE_LEFT"`: Move the platform to the left
-* `"MOVE_RIGHT"`: Move the platform to the right
-* `"NONE"`: Do nothing
+* `"SERVE_TO_LEFT"`：將球發往左邊
+* `"SERVE_TO_RIGHT"`：將球發往右邊
+* `"MOVE_LEFT"`：將平台往左移動
+* `"MOVE_RIGHT"`：將平台往右移動
+* `"NONE"`：平台無動作
 
-### Log File
+### 紀錄檔
 
-The name of the ml client in the log flie is `"1P"`.
+在紀錄檔中，機器學習端的名字為 `"1P"`。
 
-## Custom Level Map Files
+## 自訂關卡地圖
 
-You can define your own map file, put it in the `game/level_data/` directory, and give it an unique filename  `<level_id>.dat`.
+你可以將自訂的關卡地圖放在 `game/level_data/` 裡，並給其一個獨特的 `<level_id>.dat` 作為檔名。
 
-In the file, each line has 3 numbers representing the x, y position and the type of brick. The first line is the offset of all bricks, and the following lines are the position of bricks. Therefore, the final position of a brick is its position plus the offset. The third value in the first line is always -1. The third values in the following lines specify the type of the bricks, which 0 is a normal brick and 1 is a hard brick. For example:
+在地圖檔中，每一行由三個數字構成，分別代表磚塊的 x 和 y 座標，與磚塊類型。檔案的第一行是標記所有方塊的座標補正 (offset)，因此方塊的最終座標為指定的座標加上第一行的座標補正。而磚塊類型的值，0 代表一般磚塊，1 代表硬磚塊，而第一行的磚塊類型值永遠是 -1，例如：
 ```
 25 50 -1
 10 0 0
 35 10 0
 60 20 1
 ```
-This map file contains 3 bricks, and their positions are at (35, 50), (60, 60), (85, 70), respectively, and the third brick is a hard brick.
+代表這個地圖檔有三個磚塊，其座標分別為 (35, 50)、(60, 60),、(85, 70)，而第三個磚塊是硬磚塊。
 
-## About the Ball
+## 遊戲結果
+```json
+{"frame_used": 5827, 
+  "state": "FINISH", 
+  "attachment": [
+    {"player": "1P", 
+      "brick_remain": 2,
+      "count_of_catching_ball": 51}
+  ]}
 
-If the ball hits into another game object or the wall, the ball will be squeezed out directly to the hitting surface of that game object or the wall instead of compensating the bouncing distance.
+```
+`brick_remain` 愈小愈好 value = 剩餘普通積木的數量 + 2*剩餘硬磚頭的數量
+## 關於球的物理
+
+如果球撞進其他遊戲物件或是遊戲邊界，球會被直接「擠出」到碰撞面上，而不是補償碰撞距離給球。
 
 ![Imgur](https://i.imgur.com/ouk3Jzh.png)
