@@ -5,6 +5,7 @@
   "game_params": [
     {
       "name": "difficulty",
+      "flag": "d",
       "verbose": "遊戲模式",
       "type": "str",
       "choices": [
@@ -22,6 +23,7 @@
     },
     {
       "name": "level",
+      "flag": "l",
       "verbose": "關卡",
       "type": "int",
       "min": 1,
