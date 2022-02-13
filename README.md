@@ -3,7 +3,7 @@
 ![pygame](https://img.shields.io/github/v/tag/PAIA-Playful-AI-Arena/arkanoid)
 
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
-[![MLGame](https://img.shields.io/badge/MLGame-9.1.6--beta-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
+[![MLGame](https://img.shields.io/badge/MLGame-9.2.3-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
 [![pygame](https://img.shields.io/badge/pygame-2.0.1-<COLOR>.svg)](https://github.com/pygame/pygame/releases/tag/2.0.1)
 
 這是一個經典的打磚塊小遊戲
@@ -92,7 +92,11 @@ game = Arkanoid(difficulty="EASY", level=3)
 
 ```bash
 # python MLGame.py <options> arkanoid <difficulty> <level_id>
+# before MLGame 9.1.*
 python MLGame.py -i ml_play_template.py arkanoid EASY 3
+
+# Begin from MLGame 9.2.*
+python MLGame.py -i ml_play_template.py -f 120 arkanoid --difficulty NORMAL --level 10
 ```
 
 遊戲參數依序是 [`difficulty`] [`level_id`]
