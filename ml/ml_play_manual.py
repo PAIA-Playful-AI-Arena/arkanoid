@@ -1,6 +1,7 @@
 """
 The template of the main script of the machine learning process
 """
+import pygame
 
 
 class MLPlay:
@@ -10,7 +11,7 @@ class MLPlay:
         """
         self.ball_served = False
 
-    def update(self, scene_info, *args, **kwargs):
+    def update(self, scene_info,keyboard=[], *args, **kwargs):
         """
         Generate the command according to the received `scene_info`.
         """
@@ -18,11 +19,19 @@ class MLPlay:
         if (scene_info["status"] == "GAME_OVER" or
                 scene_info["status"] == "GAME_PASS"):
             return "RESET"
-        if not self.ball_served:
-            self.ball_served = True
+
+        if pygame.K_q in keyboard:
             command = "SERVE_TO_LEFT"
-        else:
+            self.ball_served = True
+        elif pygame.K_e in keyboard:
+            command = "SERVE_TO_RIGHT"
+            self.ball_served = True
+        elif pygame.K_LEFT in keyboard or pygame.K_a in keyboard:
             command = "MOVE_LEFT"
+        elif pygame.K_RIGHT in keyboard or pygame.K_d in keyboard:
+            command = "MOVE_RIGHT"
+        else:
+            command = "NONE"
 
         return command
 
