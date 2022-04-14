@@ -3,7 +3,7 @@
 ![pygame](https://img.shields.io/github/v/tag/PAIA-Playful-AI-Arena/arkanoid)
 
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
-[![MLGame](https://img.shields.io/badge/MLGame-9.2.3-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
+[![MLGame](https://img.shields.io/badge/MLGame-9.4.1-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
 [![pygame](https://img.shields.io/badge/pygame-2.0.1-<COLOR>.svg)](https://github.com/pygame/pygame/releases/tag/2.0.1)
 
 這是一個經典的打磚塊小遊戲
