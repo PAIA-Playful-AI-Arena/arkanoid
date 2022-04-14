@@ -4,7 +4,7 @@ The template of the main script of the machine learning process
 
 
 class MLPlay:
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Constructor
         """

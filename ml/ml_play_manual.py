@@ -11,11 +11,13 @@ class MLPlay:
         """
         self.ball_served = False
 
-    def update(self, scene_info,keyboard=[], *args, **kwargs):
+    def update(self, scene_info, keyboard=None, *args, **kwargs):
         """
         Generate the command according to the received `scene_info`.
         """
         # Make the caller to invoke `reset()` for the next round.
+        if keyboard is None:
+            keyboard = []
         if (scene_info["status"] == "GAME_OVER" or
                 scene_info["status"] == "GAME_PASS"):
             return "RESET"
