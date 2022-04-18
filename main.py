@@ -20,9 +20,7 @@ if __name__ == '__main__':
         commands = game.get_keyboard_command()
         game.update(commands)
         game_progress_data = game.get_scene_progress_data()
-        game_view.draw_screen()
         game_view.draw(game_progress_data)
-        game_view.flip()
         frame_count += 1
 
     pygame.quit()
