@@ -27,7 +27,7 @@ game = Arkanoid(difficulty="EASY", level=3)
 - `difficulty`：遊戲難度
   - `EASY`：簡單的打磚塊遊戲
   - `NORMAL`：加入切球機制
-- `level`：指定關卡地圖。可以指定的關卡地圖皆在 `game/level_data/` 裡
+- `level`：指定關卡地圖。可以指定的關卡地圖皆在 `./asset/level_data/` 裡
 
 ## **玩法**
 
@@ -53,7 +53,8 @@ game = Arkanoid(difficulty="EASY", level=3)
     - 板子
       - 綠色長方形
       - 每一影格的移動速度是 (±5, 0)
-      - 初始位置在 (75, 400)
+      - 初始位置在 (75, 400) 此數值為物件`左上角`的座標
+      
     - 球
       - 藍色方形
       - 每一影格的移動速度是 (±7, ±7)
@@ -71,6 +72,7 @@ game = Arkanoid(difficulty="EASY", level=3)
 
 3. 座標系統
     - 螢幕大小 200 x 500
+    - 系統提供物件的座標資料，皆是物件`左上角`的座標
     - 板子 40 x 5
     - 球 5 x 5
     - 磚塊、硬磚塊 25 x 10
@@ -93,13 +95,13 @@ game = Arkanoid(difficulty="EASY", level=3)
 ```bash
 # python MLGame.py <options> arkanoid <difficulty> <level_id>
 # before MLGame 9.1.*
+# 遊戲參數依序是 [`difficulty`] [`level_id`]
 python MLGame.py -i ml_play_template.py arkanoid EASY 3
 
 # Begin from MLGame 9.2.*
 python MLGame.py -i ml_play_template.py -f 120 arkanoid --difficulty NORMAL --level 10
 ```
 
-遊戲參數依序是 [`difficulty`] [`level_id`]
 
 ## ＡＩ範例
 
