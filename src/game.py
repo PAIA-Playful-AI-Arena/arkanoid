@@ -66,6 +66,7 @@ class Arkanoid(PaiaGame):
             "frame": self.frame_count,
             "status": self.get_game_status(),
             "ball": self._ball.pos,
+            "ball_served": self.ball_served,
             "platform": self._platform.pos,
             "bricks": [],
             "hard_bricks": []

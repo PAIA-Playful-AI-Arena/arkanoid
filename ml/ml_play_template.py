@@ -8,7 +8,6 @@ class MLPlay:
         """
         Constructor
         """
-        self.ball_served = False
 
     def update(self, scene_info, *args, **kwargs):
         """
@@ -18,8 +17,7 @@ class MLPlay:
         if (scene_info["status"] == "GAME_OVER" or
                 scene_info["status"] == "GAME_PASS"):
             return "RESET"
-        if not self.ball_served:
-            self.ball_served = True
+        if not scene_info["ball_served"]:
             command = "SERVE_TO_LEFT"
         else:
             command = "MOVE_LEFT"
