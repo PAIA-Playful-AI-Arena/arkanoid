@@ -2,7 +2,7 @@ import random
 import pygame
 from mlgame.gamedev.game_interface import PaiaGame, GameResultState, GameStatus
 from mlgame.view.test_decorator import check_game_progress, check_game_result
-from mlgame.view.view_model import create_text_view_data, Scene
+from mlgame.view.view_model import create_text_view_data, Scene, create_scene_progress_data
 from .game_object import Ball, Platform, Brick, HardBrick, PlatformAction, SERVE_BALL_ACTIONS
 
 
@@ -57,7 +57,7 @@ class Arkanoid(PaiaGame):
             else:
                 self._brick.remove(brick)
         self._brick.extend(new_bricks)
-        
+
         self._ball.check_bouncing(self._platform)
 
     def game_to_player_data(self):
@@ -66,6 +66,7 @@ class Arkanoid(PaiaGame):
             "frame": self.frame_count,
             "status": self.get_game_status(),
             "ball": self._ball.pos,
+            "ball_served": self.ball_served,
             "platform": self._platform.pos,
             "bricks": [],
             "hard_bricks": []
@@ -135,24 +136,17 @@ class Arkanoid(PaiaGame):
         remain_brick_text = create_text_view_data("remain brick: " + str(len(self._brick)), 1,
                                                   self.scene.height - 41, "#FFFFFF", "18px Arial")
         remain_hard_brick_text = create_text_view_data("remain hard brick: " + str(len(self._hard_brick)), 1,
-                                                  self.scene.height - 61, "#FFFFFF", "18px Arial")
+                                                       self.scene.height - 61, "#FFFFFF", "18px Arial")
         foreground = [catch_ball_text, remain_brick_text, remain_hard_brick_text]
         foreground.extend(lines)
 
-        scene_progress = {
-            "background": [],
-            "object_list": game_obj_list,
-            "toggle": [],
-            "foreground": foreground,
-            "user_info": [],
-            "game_sys_info": {}
-        }
-
+        scene_progress = create_scene_progress_data(frame=self.frame_count, object_list=game_obj_list,
+                                                    foreground=foreground)
         return scene_progress
 
     @check_game_result
     def get_game_result(self):
-        if self._game_status == GameStatus.GAME_PASS :
+        if self._game_status == GameStatus.GAME_PASS:
             self.game_result_state = GameResultState.FINISH
         return {
             "frame_used": self.frame_count,
@@ -160,7 +154,7 @@ class Arkanoid(PaiaGame):
             "attachment": [
                 {
                     "player": self.ai_clients()[0]['name'],
-                    "brick_remain": len(self._brick)+2*len(self._hard_brick),
+                    "brick_remain": len(self._brick) + 2 * len(self._hard_brick),
                     "count_of_catching_ball": self._ball.hit_platform_times
 
                 }
@@ -211,7 +205,7 @@ class Arkanoid(PaiaGame):
         self._brick_container = []
 
         import os.path as path
-        asset_path = path.join(path.dirname(__file__),'..','asset')
+        asset_path = path.join(path.dirname(__file__), '..', 'asset')
 
         level_file_path = path.join(asset_path, "level_data/{0}.dat".format(level))
         if not path.exists(level_file_path):
@@ -230,7 +224,7 @@ class Arkanoid(PaiaGame):
                 brick = BrickType((pos_x + offset_x, pos_y + offset_y),
                                   self._group_brick)
                 self._brick_container.append(brick)
-                
+
                 if BrickType == Brick:
                     self._brick.append(brick)
                 else:
