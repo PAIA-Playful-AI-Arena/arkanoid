@@ -7,7 +7,7 @@
 [![MLGame](https://img.shields.io/badge/MLGame-9.4.1-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
 [![pygame](https://img.shields.io/badge/pygame-2.0.1-<COLOR>.svg)](https://github.com/pygame/pygame/releases/tag/2.0.1)
 
-這是一個經典的打磚塊小遊戲
+打磚塊(Arkanoid)可是世界上最古老經典遊戲之一，透過決定發球的位置與方向，嘗試接到回彈的球，逐一打掉所有磚塊。來挑戰看看如何在最短時間內擊破所有的磚塊，遊戲中還準備了各種不同的難度來讓你挑戰喔！
 
 <img src="https://camo.githubusercontent.com/a2a0ed0f4e012779cdf3d7fdeda6371c1a4cb3483e91c56442db5d3b56440798/68747470733a2f2f692e696d6775722e636f6d2f627271615738352e676966" height="500"/>
 
