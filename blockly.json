@@ -9,6 +9,7 @@
         ["scene_info['status']", "game status", "遊戲狀態"],
         ["scene_info['ball'][0]", "x coordinate of ball", "球的 x 座標"],
         ["scene_info['ball'][1]", "y coordinate of ball", "球的 y 座標"],
+        ["scene_info['ball_served']", "the state of ball is served", "發球狀態"],
         ["scene_info['platform'][0]", "x coordinate of platform", "平台的 x 座標"],
         ["scene_info['platform'][1]", "y coordinate of platform", "平台的 y 座標"],
         ["scene_info['bricks']", "list of brick positions", "磚塊的位置清單"],
