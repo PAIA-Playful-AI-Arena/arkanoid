@@ -1,13 +1,13 @@
 # Arkanoid 打磚塊
 
-<img src="./asset/logo.svg" alt="logo" width="100"/> 
+<img src="https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/Paia-Desktop/master/media/arkanoid.svg" alt="logo" width="100"/> 
 
 ![arkanoid](https://img.shields.io/github/v/tag/PAIA-Playful-AI-Arena/arkanoid)
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
 [![MLGame](https://img.shields.io/badge/MLGame-9.4.1-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
 [![pygame](https://img.shields.io/badge/pygame-2.0.1-<COLOR>.svg)](https://github.com/pygame/pygame/releases/tag/2.0.1)
 
-這是一個經典的打磚塊小遊戲
+打磚塊(Arkanoid)可是世界上最古老經典遊戲之一，透過決定發球的位置與方向，嘗試接到回彈的球，逐一打掉所有磚塊。來挑戰看看如何在最短時間內擊破所有的磚塊，遊戲中還準備了各種不同的難度來讓你挑戰喔！
 
 <img src="https://camo.githubusercontent.com/a2a0ed0f4e012779cdf3d7fdeda6371c1a4cb3483e91c56442db5d3b56440798/68747470733a2f2f692e696d6775722e636f6d2f627271615738352e676966" height="500"/>
 
@@ -53,20 +53,21 @@ game = Arkanoid(difficulty="EASY", level=3)
 1. 遊戲物件
 
     - 板子
-        - 綠色長方形
+        - 綠色長方形 寬度40,高度5
         - 每一影格的移動速度是 (±5, 0)
         - 初始位置在 (75, 400) 此數值為物件`左上角`的座標
 
     - 球
-        - 藍色方形
+        - 藍色正方形 邊長5
         - 每一影格的移動速度是 (±7, ±7)
         - 球會從板子所在的位置發出，可以選擇往左或往右發球。
         - 如果在 150 影格內沒有發球，則會自動往隨機兩個方向發球
-    - 磚塊
-        - 橘色長方形
+        - 初始位置在 (93, 395) 此數值為物件`左上角`的座標
+    - 磚塊 
+        - 橘色長方形 寬度25,高度10
         - 其位置由關卡地圖決定
     - 硬磚塊
-        - 紅色長方形
+        - 紅色長方形 寬度25,高度10
         - 硬磚塊要被打兩次才會被破壞。其被球打一次後，會變為一般磚塊。但是如果被加速後的球打到，則可以直接被破壞
 
 2. 行動機制
