@@ -23,8 +23,10 @@
         [500, "bottom boundary", "下邊界"],
         [40, "platform width", "平台寬度"],
         [5, "platform height", "平台高度"],
+        [400, "y coordinate of platform", "平台y座標"],
         [25, "brick width", "磚塊寬度"],
-        [10, "brick height", "磚塊高度"]
+        [10, "brick height", "磚塊高度"],
+        [5, "ball width", "球的邊長"]
     ],
     "ACTION": [
         ["SERVE_TO_LEFT", "serving left", "向左發球"],
