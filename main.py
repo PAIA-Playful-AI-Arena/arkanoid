@@ -5,7 +5,7 @@ import pygame
 sys.path.append(r"../..")
 
 from mlgame.view.view import PygameView
-from mlgame.gamedev.generic import quit_or_esc
+from mlgame.game.generic import quit_or_esc
 from src.game import Arkanoid
 
 FPS = 30

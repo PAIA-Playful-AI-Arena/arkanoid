@@ -5,7 +5,7 @@ from pygame.math import Vector2
 from pygame.sprite import Sprite
 import random
 
-from mlgame.gamedev import physics
+from mlgame.game import physics
 from mlgame.utils.enum import StringEnum, auto
 
 class Brick(Sprite):
