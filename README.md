@@ -11,6 +11,9 @@
 
 <img src="https://camo.githubusercontent.com/a2a0ed0f4e012779cdf3d7fdeda6371c1a4cb3483e91c56442db5d3b56440798/68747470733a2f2f692e696d6775722e636f6d2f627271615738352e676966" height="500"/>
 
+# 更新內容(2.3.1)
+1. 更新程式碼內容，以運行於 MLGame 9.5.*以後版本
+
 ---
 
 # **基礎介紹**
