@@ -1,14 +1,15 @@
 import random
 import pygame
-from mlgame.gamedev.game_interface import PaiaGame, GameResultState, GameStatus
-from mlgame.view.test_decorator import check_game_progress, check_game_result
+
+from mlgame.game.paia_game import GameStatus, GameResultState, PaiaGame
+from mlgame.view.decorator import check_game_progress, check_game_result
 from mlgame.view.view_model import create_text_view_data, Scene, create_scene_progress_data
 from .game_object import Ball, Platform, Brick, HardBrick, PlatformAction, SERVE_BALL_ACTIONS
 
 
 class Arkanoid(PaiaGame):
-    def __init__(self, difficulty, level):
-        super().__init__()
+    def __init__(self, difficulty, level, user_num=1, *args, **kwargs):
+        super().__init__(user_num=user_num)
         self.frame_count = 0
         self.level = level
         self.difficulty = difficulty
@@ -60,7 +61,7 @@ class Arkanoid(PaiaGame):
 
         self._ball.check_bouncing(self._platform)
 
-    def game_to_player_data(self):
+    def get_data_from_game_to_player(self):
         to_players_data = {}
         data_to_1p = {
             "frame": self.frame_count,

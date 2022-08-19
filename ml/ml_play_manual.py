@@ -5,7 +5,7 @@ import pygame
 
 
 class MLPlay:
-    def __init__(self, *args, **kwargs):
+    def __init__(self,ai_name, *args, **kwargs):
         """
         Constructor
         """
