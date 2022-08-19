@@ -4,7 +4,7 @@
 
 ![arkanoid](https://img.shields.io/github/v/tag/PAIA-Playful-AI-Arena/arkanoid)
 [![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
-[![MLGame](https://img.shields.io/badge/MLGame-9.4.1-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
+[![MLGame](https://img.shields.io/badge/MLGame->9.5.3-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
 [![pygame](https://img.shields.io/badge/pygame-2.0.1-<COLOR>.svg)](https://github.com/pygame/pygame/releases/tag/2.0.1)
 
 打磚塊(Arkanoid)可是世界上最古老經典遊戲之一，透過決定發球的位置與方向，嘗試接到回彈的球，逐一打掉所有磚塊。來挑戰看看如何在最短時間內擊破所有的磚塊，遊戲中還準備了各種不同的難度來讓你挑戰喔！
@@ -97,26 +97,22 @@ game = Arkanoid(difficulty="EASY", level=3)
 ## 使用ＡＩ玩遊戲
 
 ```bash
-# python MLGame.py <options> arkanoid <difficulty> <level_id>
-# before MLGame 9.1.*
-# 遊戲參數依序是 [`difficulty`] [`level_id`]
-python MLGame.py -i ml_play_template.py arkanoid EASY 3
-
-# Begin from MLGame 9.2.*
-python MLGame.py -i ml_play_template.py -f 120 arkanoid --difficulty NORMAL --level 10
+# 在 arkanoid 資料夾中打開終端機 
+ python -m mlgame -i ./ml/ml_play_template.py . --difficulty NORMAL --level 5 
 ```
 
 ## ＡＩ範例
 
 ```python
+
 class MLPlay:
-    def __init__(self):
+    def __init__(self,ai_name, *args, **kwargs):
         """
         Constructor
         """
-        self.ball_served = False
+        print(ai_name)
 
-    def update(self, scene_info):
+    def update(self, scene_info, *args, **kwargs):
         """
         Generate the command according to the received `scene_info`.
         """
@@ -124,8 +120,7 @@ class MLPlay:
         if (scene_info["status"] == "GAME_OVER" or
                 scene_info["status"] == "GAME_PASS"):
             return "RESET"
-        if not self.ball_served:
-            self.ball_served = True
+        if not scene_info["ball_served"]:
             command = "SERVE_TO_LEFT"
         else:
             command = "MOVE_LEFT"
