@@ -1,0 +1,6 @@
+FROM paia/mlgame:slim
+
+ADD . /game
+WORKDIR /game
+RUN pip install -r requirements.txt
+CMD ["bash"]

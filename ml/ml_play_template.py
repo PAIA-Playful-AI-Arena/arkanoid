@@ -4,10 +4,11 @@ The template of the main script of the machine learning process
 
 
 class MLPlay:
-    def __init__(self, *args, **kwargs):
+    def __init__(self,ai_name, *args, **kwargs):
         """
         Constructor
         """
+        print(ai_name)
 
     def update(self, scene_info, *args, **kwargs):
         """
