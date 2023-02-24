@@ -16,7 +16,7 @@ class Arkanoid(PaiaGame):
         self.difficulty = difficulty
         self.game_result_state = GameResultState.FAIL
         self.ball_served = False
-        self.scene = Scene(width=200, height=500, color="#AAAAAA", bias_x=0, bias_y=0)
+        self.scene = Scene(width=200, height=500, color="#555555", bias_x=0, bias_y=0)
         self._hard_brick = []
         self._brick = []
         self._create_init_scene()
