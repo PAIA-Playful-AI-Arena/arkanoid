@@ -1,4 +1,5 @@
 import random
+
 import pygame
 
 from mlgame.game.paia_game import GameStatus, GameResultState, PaiaGame
@@ -15,7 +16,7 @@ class Arkanoid(PaiaGame):
         self.difficulty = difficulty
         self.game_result_state = GameResultState.FAIL
         self.ball_served = False
-        self.scene = Scene(width=200, height=500, color="#000000", bias_x=0, bias_y=0)
+        self.scene = Scene(width=200, height=500, color="#555555", bias_x=0, bias_y=0)
         self._hard_brick = []
         self._brick = []
         self._create_init_scene()
@@ -108,11 +109,7 @@ class Arkanoid(PaiaGame):
         return self.get_game_status() == GameStatus.GAME_ALIVE
 
     def get_scene_init_data(self):
-        scene_init_data = {"scene": self.scene.__dict__,
-                           "assets": [
-
-                           ]
-                           }
+        scene_init_data = {"scene": self.scene.__dict__,"assets": []}
         return scene_init_data
 
     @check_game_progress
@@ -131,18 +128,22 @@ class Arkanoid(PaiaGame):
         game_obj_list.extend(bricks_data)
         game_obj_list.extend(lines)
 
-        catch_ball_text = create_text_view_data("catching ball: " + str(self._ball.hit_platform_times), 1,
-                                                self.scene.height - 21, "#FFFFFF", "18px Arial")
+        catch_ball_text = create_text_view_data(
+            "catching ball: " + str(self._ball.hit_platform_times), 1,
+            self.scene.height - 21, "#FFFFFF", "18px Arial")
 
-        remain_brick_text = create_text_view_data("remain brick: " + str(len(self._brick)), 1,
-                                                  self.scene.height - 41, "#FFFFFF", "18px Arial")
-        remain_hard_brick_text = create_text_view_data("remain hard brick: " + str(len(self._hard_brick)), 1,
-                                                       self.scene.height - 61, "#FFFFFF", "18px Arial")
+        remain_brick_text = create_text_view_data(
+            "remain brick: " + str(len(self._brick)), 1,
+            self.scene.height - 41, "#FFFFFF", "18px Arial")
+        remain_hard_brick_text = create_text_view_data(
+            "remain hard brick: " + str(len(self._hard_brick)), 1,
+            self.scene.height - 61, "#FFFFFF", "18px Arial")
         foreground = [catch_ball_text, remain_brick_text, remain_hard_brick_text]
-        foreground.extend(lines)
+        # foreground.extend(lines)
 
-        scene_progress = create_scene_progress_data(frame=self.frame_count, object_list=game_obj_list,
-                                                    foreground=foreground)
+        scene_progress = create_scene_progress_data(
+            frame=self.frame_count, object_list=game_obj_list,
+            foreground=foreground)
         return scene_progress
 
     @check_game_result
