@@ -11,7 +11,6 @@ from mlgame.utils.enum import StringEnum, auto
 class Brick(Sprite):
     def __init__(self, init_pos, *groups):
         super().__init__(*groups)
-        # TODO change to image
         self.rect = Rect(init_pos[0], init_pos[1], 25, 10)
         self.image = self._create_surface((244, 158, 66))   # Orange
         self.color = "#E09E42"
@@ -47,7 +46,6 @@ class Brick(Sprite):
 
     @property
     def get_object_data(self):
-        # TODO change to image
         return create_image_view_data(
             "brick",
             self.rect.x,
@@ -154,11 +152,11 @@ class Platform(Sprite):
         )
 
 class Ball(Sprite):
-    def __init__(self, init_pos, play_area_rect: Rect, enable_slide_ball: bool, *groups):
+    def __init__(self, init_pos, play_area_rect: Rect, *groups):
         super().__init__(*groups)
 
         self._play_area_rect = play_area_rect
-        self._do_slide_ball = enable_slide_ball
+        self._do_slide_ball = True
         self._init_pos = init_pos
         self._speed = [0, 0]
 

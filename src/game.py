@@ -12,7 +12,7 @@ from .game_object import Ball, Platform, Brick, HardBrick, PlatformAction, SERVE
 
 
 class Arkanoid(PaiaGame):
-    def __init__(self, difficulty, level=1, user_num=1, level_file=None, *args, **kwargs):
+    def __init__(self, user_num=1, level=1, level_file=None, *args, **kwargs):
         super().__init__(user_num=user_num)
         self.frame_count = 0
 
@@ -28,7 +28,7 @@ class Arkanoid(PaiaGame):
             return level_file_path
 
         self.level_file_path = get_level_file_path(level, level_file)
-        self.difficulty = difficulty
+
         self.game_result_state = GameResultState.FAIL
         self.ball_served = False
         self.scene = Scene(width=200, height=500, color="#215282", bias_x=0, bias_y=0)
@@ -124,7 +124,7 @@ class Arkanoid(PaiaGame):
         return self.get_game_status() == GameStatus.GAME_ALIVE
 
     def get_scene_init_data(self):
-        # TODO add image file
+
         scene_init_data = {
             "scene": self.scene.__dict__,
             "assets": [
@@ -220,8 +220,8 @@ class Arkanoid(PaiaGame):
 
     def _create_moves(self):
         self._group_move = pygame.sprite.RenderPlain()
-        enable_slide_ball = False if self.difficulty == "EASY" else True
-        self._ball = Ball((93, 395), pygame.Rect(0, 0, 200, 500), enable_slide_ball, self._group_move)
+
+        self._ball = Ball((93, 391), pygame.Rect(0, 0, 200, 500), self._group_move)
         self._platform = Platform((75, 400), pygame.Rect(0, 0, 200, 500), self._group_move)
 
     def _create_bricks(self):

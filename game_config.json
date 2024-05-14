@@ -13,24 +13,6 @@
   },
   "game_params": [
     {
-      "name": "difficulty",
-      "flag": "d",
-      "verbose": "遊戲模式",
-      "type": "str",
-      "choices": [
-        {
-          "verbose": "簡單",
-          "value": "EASY"
-        },
-        {
-          "verbose": "一般",
-          "value": "NORMAL"
-        }
-      ],
-      "default": "NORMAL",
-      "help": "Specify the game style. Choices: %(choices)s"
-    },
-    {
       "name": "level",
       "flag": "l",
       "verbose": "關卡",
