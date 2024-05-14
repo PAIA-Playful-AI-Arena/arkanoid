@@ -1,20 +1,33 @@
 import random
+from os import path
 
 import pygame
 
 from mlgame.game.paia_game import GameStatus, GameResultState, PaiaGame
 from mlgame.view.decorator import check_game_progress, check_game_result
 from mlgame.view.view_model import create_text_view_data, Scene, create_scene_progress_data, create_asset_init_data
-from .env import BRICK_PATH, BRICK_URL, BALL_PATH, BOARD_PATH, BOARD_URL, BALL_URL, HARD_BRICK_PATH, HARD_BRICK_URL
+from .env import BRICK_PATH, BRICK_URL, BALL_PATH, BOARD_PATH, BOARD_URL, BALL_URL, HARD_BRICK_PATH, HARD_BRICK_URL, \
+    ASSET_LEVEL_DIR
 from .game_object import Ball, Platform, Brick, HardBrick, PlatformAction, SERVE_BALL_ACTIONS
 
 
 class Arkanoid(PaiaGame):
-    def __init__(self, difficulty, level, user_num=1, *args, **kwargs):
-        # TODO add level_file
+    def __init__(self, difficulty, level=1, user_num=1, level_file=None, *args, **kwargs):
         super().__init__(user_num=user_num)
         self.frame_count = 0
-        self.level = level
+
+        def get_level_file_path(level: int, level_file: str):
+            if level_file:
+                level_file_path = level_file
+            else:
+                level_file_path = path.join(ASSET_LEVEL_DIR, f"{level}.dat")
+
+            if not path.exists(level_file_path):
+                print("level is not existed , turn to level 1")
+                level_file_path = path.join(ASSET_LEVEL_DIR, "1.dat")
+            return level_file_path
+
+        self.level_file_path = get_level_file_path(level, level_file)
         self.difficulty = difficulty
         self.game_result_state = GameResultState.FAIL
         self.ball_served = False
@@ -120,7 +133,7 @@ class Arkanoid(PaiaGame):
                 create_asset_init_data("ball", 5, 5, BALL_PATH, BALL_URL),
                 create_asset_init_data("board", 40, 5, BOARD_PATH, BOARD_URL),
             ],
-            "background":[]
+            "background": []
         }
         return scene_init_data
 
@@ -142,14 +155,14 @@ class Arkanoid(PaiaGame):
 
         catch_ball_text = create_text_view_data(
             "catching ball: " + str(self._ball.hit_platform_times), 30,
-            self.scene.height - 21, "#FFFFFF", "18px DotGothic16")
+            self.scene.height - 21, "#FFFFFF", "16px Arial")
 
         remain_brick_text = create_text_view_data(
             "remain brick: " + str(len(self._brick)), 30,
-            self.scene.height - 41, "#FFFFFF", "18px DotGothic16")
+            self.scene.height - 41, "#FFFFFF", "16px Arial")
         remain_hard_brick_text = create_text_view_data(
             "remain hard brick: " + str(len(self._hard_brick)), 30,
-            self.scene.height - 61, "#FFFFFF", "18px DotGothic16")
+            self.scene.height - 61, "#FFFFFF", "16px Arial")
         foreground = [catch_ball_text, remain_brick_text, remain_hard_brick_text]
         # foreground.extend(lines)
 
@@ -202,7 +215,8 @@ class Arkanoid(PaiaGame):
         3. 磚塊
         '''
         self._create_moves()
-        self._create_bricks(self.level)
+
+        self._create_bricks()
 
     def _create_moves(self):
         self._group_move = pygame.sprite.RenderPlain()
@@ -210,7 +224,7 @@ class Arkanoid(PaiaGame):
         self._ball = Ball((93, 395), pygame.Rect(0, 0, 200, 500), enable_slide_ball, self._group_move)
         self._platform = Platform((75, 400), pygame.Rect(0, 0, 200, 500), self._group_move)
 
-    def _create_bricks(self, level: int):
+    def _create_bricks(self):
         def get_coordinate_and_type(string):
             string = string.rstrip("\n").split(' ')
             return int(string[0]), int(string[1]), int(string[2])
@@ -218,15 +232,7 @@ class Arkanoid(PaiaGame):
         self._group_brick = pygame.sprite.RenderPlain()
         self._brick_container = []
 
-        import os.path as path
-        asset_path = path.join(path.dirname(__file__), '..', 'asset')
-
-        level_file_path = path.join(asset_path, "level_data/{0}.dat".format(level))
-        if not path.exists(level_file_path):
-            print("level is not existed , turn to level 1")
-            level_file_path = path.join(asset_path, "level_data/{0}.dat".format(1))
-
-        with open(level_file_path, 'r') as input_file:
+        with open(self.level_file_path, 'r') as input_file:
             offset_x, offset_y, _ = get_coordinate_and_type(input_file.readline())
             for input_pos in input_file:
                 pos_x, pos_y, type = get_coordinate_and_type(input_pos.rstrip("\n"))

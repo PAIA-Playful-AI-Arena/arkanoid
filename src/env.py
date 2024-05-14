@@ -1,5 +1,7 @@
 from os import path
 
+ASSET_DIR = path.join(path.dirname(__file__), "../asset")
+ASSET_LEVEL_DIR = path.join(path.dirname(__file__), "../asset/level_data")
 ASSET_IMAGE_DIR = path.join(path.dirname(__file__), "../asset/img")
 
 BG_PATH = path.join(ASSET_IMAGE_DIR, "background.png")

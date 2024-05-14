@@ -115,7 +115,7 @@ class Platform(Sprite):
         self._speed = [0, 0]
         self._init_pos = init_pos
 
-        self.rect = Rect(init_pos[0], init_pos[1], 40, 5)
+        self.rect = Rect(init_pos[0], init_pos[1], 40, 8)
         self.image = self._create_surface()
 
     def _create_surface(self):
@@ -164,7 +164,7 @@ class Ball(Sprite):
 
         self.hit_platform_times = 0
 
-        self.rect = Rect(*self._init_pos, 5, 5)
+        self.rect = Rect(*self._init_pos, 11, 11)
         self.image = self._create_surface()
 
         # For additional collision checking
@@ -289,17 +289,17 @@ class Ball(Sprite):
 
     @property
     def get_object_data(self):
-        # return create_image_view_data(
-        #     "ball",
-        #     self.rect.x,
-        #     self.rect.y,
-        #     self.rect.width,
-        #     self.rect.height,
-        # )
-        return {"type": "rect",
-                "name": "ball",
-                "x": self.rect.x,
-                "y": self.rect.y,
-                "width": self.rect.width,
-                "height": self.rect.height,
-                "color": self.color}
+        return create_image_view_data(
+            "ball",
+            self.rect.x,
+            self.rect.y,
+            self.rect.width,
+            self.rect.height,
+        )
+        # return {"type": "rect",
+        #         "name": "ball",
+        #         "x": self.rect.x,
+        #         "y": self.rect.y,
+        #         "width": self.rect.width,
+        #         "height": self.rect.height,
+        #         "color": self.color}
