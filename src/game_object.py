@@ -1,4 +1,4 @@
-from mlgame.view.view_model import create_line_view_data
+from mlgame.view.view_model import create_line_view_data, create_image_view_data
 import pygame
 from pygame import Rect, Surface
 from pygame.math import Vector2
@@ -11,10 +11,11 @@ from mlgame.utils.enum import StringEnum, auto
 class Brick(Sprite):
     def __init__(self, init_pos, *groups):
         super().__init__(*groups)
-
+        # TODO change to image
         self.rect = Rect(init_pos[0], init_pos[1], 25, 10)
         self.image = self._create_surface((244, 158, 66))   # Orange
         self.color = "#E09E42"
+
 
     def _create_surface(self, color):
         surface = Surface((self.rect.width, self.rect.height))
@@ -46,13 +47,21 @@ class Brick(Sprite):
 
     @property
     def get_object_data(self):
-        return {"type": "rect",
-                "name": "brick",
-                "x": self.rect.x,
-                "y": self.rect.y,
-                "width": self.rect.width,
-                "height": self.rect.height,
-                "color": self.color}
+        # TODO change to image
+        return create_image_view_data(
+            "brick",
+            self.rect.x,
+            self.rect.y,
+            self.rect.width,
+            self.rect.height,
+        )
+        # return {"type": "rect",
+        #         "name": "brick",
+        #         "x": self.rect.x,
+        #         "y": self.rect.y,
+        #         "width": self.rect.width,
+        #         "height": self.rect.height,
+        #         "color": self.color}
 
 class HardBrick(Brick):
     def __init__(self, init_pos, *groups):
@@ -80,13 +89,13 @@ class HardBrick(Brick):
     
     @property
     def get_object_data(self):
-        return {"type": "rect",
-                "name": "hard_brick",
-                "x": self.rect.x,
-                "y": self.rect.y,
-                "width": self.rect.width,
-                "height": self.rect.height,
-                "color": self.color}
+        return create_image_view_data(
+            "hard_brick",
+            self.rect.x,
+            self.rect.y,
+            self.rect.width,
+            self.rect.height,
+        )
 
 class PlatformAction(StringEnum):
     SERVE_TO_LEFT = auto()

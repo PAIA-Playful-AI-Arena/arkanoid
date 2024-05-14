@@ -4,12 +4,14 @@ import pygame
 
 from mlgame.game.paia_game import GameStatus, GameResultState, PaiaGame
 from mlgame.view.decorator import check_game_progress, check_game_result
-from mlgame.view.view_model import create_text_view_data, Scene, create_scene_progress_data
+from mlgame.view.view_model import create_text_view_data, Scene, create_scene_progress_data, create_asset_init_data
+from .env import BRICK_PATH, BRICK_URL, BALL_PATH, BOARD_PATH, BOARD_URL, BALL_URL, HARD_BRICK_PATH, HARD_BRICK_URL
 from .game_object import Ball, Platform, Brick, HardBrick, PlatformAction, SERVE_BALL_ACTIONS
 
 
 class Arkanoid(PaiaGame):
     def __init__(self, difficulty, level, user_num=1, *args, **kwargs):
+        # TODO add level_file
         super().__init__(user_num=user_num)
         self.frame_count = 0
         self.level = level
@@ -109,7 +111,17 @@ class Arkanoid(PaiaGame):
         return self.get_game_status() == GameStatus.GAME_ALIVE
 
     def get_scene_init_data(self):
-        scene_init_data = {"scene": self.scene.__dict__,"assets": []}
+        # TODO add image file
+        scene_init_data = {
+            "scene": self.scene.__dict__,
+            "assets": [
+                create_asset_init_data("brick", 25, 10, BRICK_PATH, BRICK_URL),
+                create_asset_init_data("hard_brick", 25, 10, HARD_BRICK_PATH, HARD_BRICK_URL),
+                create_asset_init_data("ball", 5, 5, BALL_PATH, BALL_URL),
+                create_asset_init_data("board", 40, 5, BOARD_PATH, BOARD_URL),
+            ],
+            "background":[]
+        }
         return scene_init_data
 
     @check_game_progress
@@ -118,8 +130,8 @@ class Arkanoid(PaiaGame):
         lines = []
         for brick in self._group_brick:
             bricks_data.append(brick.get_object_data)
-            lines.append(brick.get_line_data1)
-            lines.append(brick.get_line_data2)
+            # lines.append(brick.get_line_data1)
+            # lines.append(brick.get_line_data2)
 
         game_obj_list = []
         for move in self._group_move:
