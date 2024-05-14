@@ -13,24 +13,6 @@
   },
   "game_params": [
     {
-      "name": "difficulty",
-      "flag": "d",
-      "verbose": "遊戲模式",
-      "type": "str",
-      "choices": [
-        {
-          "verbose": "簡單",
-          "value": "EASY"
-        },
-        {
-          "verbose": "一般",
-          "value": "NORMAL"
-        }
-      ],
-      "default": "NORMAL",
-      "help": "Specify the game style. Choices: %(choices)s"
-    },
-    {
       "name": "level",
       "flag": "l",
       "verbose": "關卡",
@@ -39,6 +21,13 @@
       "max": 100,
       "help": "Specify the level map",
       "default": 1
+    },
+    {
+      "name": "level_file",
+      "verbose": "關卡檔案",
+      "type": "path",
+      "help": "Specify the level file, this config will ignore any number you set in `level` "
+
     }
   ]
 }
