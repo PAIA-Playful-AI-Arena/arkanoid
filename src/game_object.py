@@ -145,13 +145,13 @@ class Platform(Sprite):
 
     @property
     def get_object_data(self):
-        return {"type": "rect",
-                "name": "platform",
-                "x": self.rect.x,
-                "y": self.rect.y,
-                "width": self.rect.width,
-                "height": self.rect.height,
-                "color": self.color}
+        return create_image_view_data(
+            "board",
+            self.rect.x,
+            self.rect.y,
+            self.rect.width,
+            self.rect.height,
+        )
 
 class Ball(Sprite):
     def __init__(self, init_pos, play_area_rect: Rect, enable_slide_ball: bool, *groups):
@@ -289,6 +289,13 @@ class Ball(Sprite):
 
     @property
     def get_object_data(self):
+        # return create_image_view_data(
+        #     "ball",
+        #     self.rect.x,
+        #     self.rect.y,
+        #     self.rect.width,
+        #     self.rect.height,
+        # )
         return {"type": "rect",
                 "name": "ball",
                 "x": self.rect.x,

@@ -18,7 +18,7 @@ class Arkanoid(PaiaGame):
         self.difficulty = difficulty
         self.game_result_state = GameResultState.FAIL
         self.ball_served = False
-        self.scene = Scene(width=200, height=500, color="#555555", bias_x=0, bias_y=0)
+        self.scene = Scene(width=200, height=500, color="#215282", bias_x=0, bias_y=0)
         self._hard_brick = []
         self._brick = []
         self._create_init_scene()
@@ -141,15 +141,15 @@ class Arkanoid(PaiaGame):
         game_obj_list.extend(lines)
 
         catch_ball_text = create_text_view_data(
-            "catching ball: " + str(self._ball.hit_platform_times), 1,
-            self.scene.height - 21, "#FFFFFF", "18px Arial")
+            "catching ball: " + str(self._ball.hit_platform_times), 30,
+            self.scene.height - 21, "#FFFFFF", "18px DotGothic16")
 
         remain_brick_text = create_text_view_data(
-            "remain brick: " + str(len(self._brick)), 1,
-            self.scene.height - 41, "#FFFFFF", "18px Arial")
+            "remain brick: " + str(len(self._brick)), 30,
+            self.scene.height - 41, "#FFFFFF", "18px DotGothic16")
         remain_hard_brick_text = create_text_view_data(
-            "remain hard brick: " + str(len(self._hard_brick)), 1,
-            self.scene.height - 61, "#FFFFFF", "18px Arial")
+            "remain hard brick: " + str(len(self._hard_brick)), 30,
+            self.scene.height - 61, "#FFFFFF", "18px DotGothic16")
         foreground = [catch_ball_text, remain_brick_text, remain_hard_brick_text]
         # foreground.extend(lines)
 
