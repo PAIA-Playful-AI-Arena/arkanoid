@@ -1,3 +1,6 @@
+#scripts
+scripts/
+
 # Git
 .git
 .gitignore
