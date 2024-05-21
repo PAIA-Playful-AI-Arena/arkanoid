@@ -11,9 +11,6 @@ pipeline {
 
     }
 
-    // tools {
-    // }
-
     stages {
       stage('get the latest tag'){
         steps{
