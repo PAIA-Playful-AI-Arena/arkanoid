@@ -3,46 +3,52 @@ pipeline {
         label 'HP_Docker_Agent'
     }
 
-    
     environment {
-    //   GITLAB_API_TOKEN = credentials('JENKINS_20240327')
-      REPO = "https://github.com/PAIA-Playful-AI-Arena/arkanoid.git"
-      registry="paiaimagestages.azurecr.io"
-      registryCredential_ID="dockerRegistry-Azure-stage"
-      
+        //   GITLAB_API_TOKEN = credentials('JENKINS_20240327')
+        game = 'arkanoid'
+        REPO = "https://github.com/PAIA-Playful-AI-Arena/${game}.git"
+        registry = 'ghcr.io/paia-playful-ai-arena'
+
     }
 
     // tools {
     // }
 
     stages {
+      stage('get the latest tag'){
+        steps{
+          script {
 
-        stage('build'){
-            steps {
-                echo 'build';
-                sh "docker build -t arkanoid:latest -f ./Dockerfile ."
-            }
-        }
-        stage('deploy'){
-            steps {
-                echo 'deploy';
-            script{
 
-                docker.withRegistry('https://' + env.registry, env.registryCredential_ID) {
-
-                        sh "docker tag arkanoid:latest ${env.registry}/arkanoid:latest"
-                        dockerImage = docker.image("${env.registry}/arkanoid:latest")
-                        dockerImage.push()
+                    def latestTag = sh(
+                            script: 'git describe --tags `git rev-list --tags --max-count=1`',
+                            returnStdout: true
+                        ).trim()
+                    echo "Latest tag: ${latestTag}"
+                    // Store the latest tag in an environment variable
+                    env.LATEST_TAG = latestTag
                 }
-            }
-            }
         }
-        
-        stage('finish'){
+      }
+        stage('build and deploy') {
             steps {
-                echo 'finish';
+                echo 'build'
+                script {
+
+                  sh """docker buildx build --platform linux/amd64,linux/arm64/v8 \
+                    -t ${env.registry}/${game}:${env.LATEST_TAG} \
+                    -f ./Dockerfile . --push
+                  """
+                }
+                // sh "docker build -t ${game}:${env.LATEST_TAG} -f ./Dockerfile ."
             }
         }
-        
+
+
+        stage('finish') {
+            steps {
+                echo 'finish'
+            }
+        }
     }
 }
