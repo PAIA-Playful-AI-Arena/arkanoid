@@ -26,12 +26,15 @@ pipeline {
         stage('deploy'){
             steps {
                 echo 'deploy';
+            script{
+
                 docker.withRegistry('https://' + env.registry, env.registryCredential_ID) {
 
                         sh "docker tag arkanoid:latest ${env.registry}/arkanoid:latest"
                         dockerImage = docker.image("${env.registry}/arkanoid:latest")
                         dockerImage.push()
                 }
+            }
             }
         }
         
