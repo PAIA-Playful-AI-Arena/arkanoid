@@ -32,7 +32,7 @@ pipeline {
                 echo 'build'
                 script {
                   sh    "docker buildx ls"
-                  sh """docker buildx build --builder=container --platform linux/amd64,linux/arm64 \
+                  sh """docker buildx build --builder=mybuilder --platform linux/amd64,linux/arm64 \
                     -t ${env.registry}/${game}:${env.LATEST_TAG} \
                     -f ./Dockerfile . --push
                   """
