@@ -15,15 +15,13 @@ pipeline {
       stage('get the latest tag'){
         steps{
           script {
-
-
-                    def latestTag = sh(
-                            script: 'git describe --tags `git rev-list --tags --max-count=1`',
-                            returnStdout: true
-                        ).trim()
-                    echo "Latest tag: ${latestTag}"
-                    // Store the latest tag in an environment variable
-                    env.LATEST_TAG = latestTag
+            def latestTag = sh(
+                    script: 'git describe --tags `git rev-list --tags --max-count=1`',
+                    returnStdout: true
+                ).trim()
+            echo "Latest tag: ${latestTag}"
+            // Store the latest tag in an environment variable
+            env.LATEST_TAG = latestTag
                 }
         }
       }
