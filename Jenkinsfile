@@ -8,37 +8,42 @@ pipeline {
         registry = 'ghcr.io/paia-playful-ai-arena'
     }
 
+    // tools {
+    // }
+
     stages {
       stage('get the latest tag'){
         steps{
           script {
-            def latestTag = sh(
-                    script: 'git describe --tags `git rev-list --tags --max-count=1`',
-                    returnStdout: true
-                ).trim()
-            echo "Latest tag: ${latestTag}"
-            // Store the latest tag in an environment variable
-            env.LATEST_TAG = latestTag
-          }
+
+
+                    def latestTag = sh(
+                            script: 'git describe --tags `git rev-list --tags --max-count=1`',
+                            returnStdout: true
+                        ).trim()
+                    echo "Latest tag: ${latestTag}"
+                    // Store the latest tag in an environment variable
+                    env.LATEST_TAG = latestTag
+                }
         }
       }
       stage('build and deploy') {
-        steps {
-            echo 'build'
-            script {
-
-              sh """docker buildx build --platform linux/amd64,linux/arm64/v8 \
-                -t ${env.registry}/${game}:${env.LATEST_TAG} \
-                -f ./Dockerfile . --push
-              """
+            steps {
+                echo 'build'
+                script {
+                  sh    "docker buildx ls"
+                  sh """docker buildx build --builder=container --platform linux/amd64,linux/arm64 \
+                    -t ${env.registry}/${game}:${env.LATEST_TAG} \
+                    -f ./Dockerfile . --push
+                  """
+                }
+                // sh "docker build -t ${game}:${env.LATEST_TAG} -f ./Dockerfile ."
             }
-            // sh "docker build -t ${game}:${env.LATEST_TAG} -f ./Dockerfile ."
         }
-      }
-      stage('finish') {
-        steps {
-            echo 'finish'
+        stage('finish') {
+            steps {
+                echo 'finish'
+            }
         }
-      }
     }
 }
