@@ -8,9 +8,6 @@ pipeline {
         registry = 'paiatech'
     }
 
-    // tools {
-    // }
-
     stages {
       stage('get the latest tag'){
         steps{
@@ -21,7 +18,6 @@ pipeline {
                 ).trim()
             echo "Latest tag: ${latestTag}"
 
-            echo "local branch: ${env.GIT_LOCAL_BRANCH}"
             def fullBranch = env.GIT_BRANCH
             echo "full branch: ${fullBranch}"
             // Extract the branch name
@@ -31,7 +27,7 @@ pipeline {
             // Store the latest tag in an environment variable
             env.tag = latestTag
             env.branch = branch
-                }
+            }
         }
       }
       stage('build and deploy') {
@@ -45,7 +41,6 @@ pipeline {
                     -f ./Dockerfile . --push
                   """
                 }
-                // sh "docker build -t ${game}:${env.tag} -f ./Dockerfile ."
             }
         }
         stage('finish') {
