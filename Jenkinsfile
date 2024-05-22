@@ -19,9 +19,14 @@ pipeline {
                     script: 'git describe --tags `git rev-list --tags --max-count=1`',
                     returnStdout: true
                 ).trim()
-            def branch = env.GIT_BRANCH
             echo "Latest tag: ${latestTag}"
-            echo "Current branch: ${branch}"
+
+            echo "local branch: ${env.GIT_LOCAL_BRANCH}"
+            def fullBranch = env.GIT_BRANCH
+            echo "full branch: ${fullBranch}"
+            // Extract the branch name
+            def branch = fullBranch.replaceFirst('^origin/', '')
+            echo "Current branch by replace: ${branch}"
 
             // Store the latest tag in an environment variable
             env.tag = latestTag
