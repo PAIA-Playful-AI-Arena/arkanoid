@@ -19,9 +19,16 @@ pipeline {
                     script: 'git describe --tags `git rev-list --tags --max-count=1`',
                     returnStdout: true
                 ).trim()
+            def branch = sh(
+                script:'git branch --show-current',
+                returnStdout: true
+              ).trim()
             echo "Latest tag: ${latestTag}"
+            echo "Current branch: ${branch}"
+
             // Store the latest tag in an environment variable
-            env.LATEST_TAG = latestTag
+            env.tag = latestTag
+            env.branch = branch
                 }
         }
       }
@@ -29,13 +36,14 @@ pipeline {
             steps {
                 echo 'build'
                 script {
-                  sh    "docker buildx ls"
+                  sh "docker buildx ls"
                   sh """docker buildx build --builder=mybuilder --platform linux/amd64,linux/arm64 \
-                    -t ${env.registry}/${game}:${env.LATEST_TAG} \
+                    -t ${env.registry}/${game}:${env.tag} \
+                    -t ${env.registry}/${game}:${env.branch} \
                     -f ./Dockerfile . --push
                   """
                 }
-                // sh "docker build -t ${game}:${env.LATEST_TAG} -f ./Dockerfile ."
+                // sh "docker build -t ${game}:${env.tag} -f ./Dockerfile ."
             }
         }
         stage('finish') {
