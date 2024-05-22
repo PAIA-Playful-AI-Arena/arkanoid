@@ -5,7 +5,7 @@ pipeline {
     environment {
         game = 'arkanoid'
         REPO = "https://github.com/PAIA-Playful-AI-Arena/${game}.git"
-        registry = 'ghcr.io/paia-playful-ai-arena'
+        registry = 'paiatech'
     }
 
     // tools {
