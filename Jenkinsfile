@@ -35,11 +35,19 @@ pipeline {
                 echo 'build'
                 script {
                   sh "docker buildx ls"
-                  sh """docker buildx build --builder=mybuilder --platform linux/amd64,linux/arm64 \
-                    -t ${env.registry}/${game}:${env.tag} \
-                    -t ${env.registry}/${game}:${env.branch} \
-                    -f ./Dockerfile . --push
-                  """
+                  if (branch == 'main' && latestTag) {
+                    sh """docker buildx build --builder=mybuilder --platform linux/amd64,linux/arm64 \
+                      -t ${env.registry}/${game}:${env.tag} \
+                      -t ${env.registry}/${game}:${env.branch} \
+                      -f ./Dockerfile . --push
+                      """
+                  }else{
+                    sh """docker buildx build --builder=mybuilder --platform linux/amd64,linux/arm64 \
+                      -t ${env.registry}/${game}:${env.branch} \
+                      -f ./Dockerfile . --push
+                    """
+                  }
+
                 }
             }
         }
