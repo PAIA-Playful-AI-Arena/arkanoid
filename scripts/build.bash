@@ -1,5 +1,5 @@
 export tag=latest
-export game="pingpong"
+export game="arkanoid"
 
 docker build \
 -t ${game}:${tag} \

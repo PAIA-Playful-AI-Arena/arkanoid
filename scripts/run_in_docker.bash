@@ -1,5 +1,5 @@
 export tag=latest
-export game="pingpong"
+export game="arkanoid"
 
 docker run -it --rm --name ${game} \
 -v ./ai/user-1/code-123:/game/ai/1P \
