@@ -1,4 +1,4 @@
-export tag=latest
+export tag="latest"
 export game="arkanoid"
 
 docker run -it --rm --name ${game} \
