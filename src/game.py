@@ -181,6 +181,7 @@ class Arkanoid(PaiaGame):
             "attachment": [
                 {
                     "player_num": self.ai_clients()[0]['name'],
+                    "rank":1,
                     "brick_remain": len(self._brick) + 2 * len(self._hard_brick),
                     "count_of_catching_ball": self._ball.hit_platform_times
 
