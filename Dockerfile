@@ -1,4 +1,4 @@
-FROM paiatech/mlgame:10.4.5.3-slim
+FROM paiatech/mlgame:10.4.6a1-slim
 
 ADD . /game
 WORKDIR /game

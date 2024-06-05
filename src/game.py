@@ -174,7 +174,7 @@ class Arkanoid(PaiaGame):
     @check_game_result
     def get_game_result(self):
         if self._game_status == GameStatus.GAME_PASS:
-            self.game_result_state = GameResultState.FINISH
+            self.game_result_state = GameResultState.PASSED
         return {
             "frame_used": self.frame_count,
             "state": self.game_result_state,
