@@ -29,7 +29,7 @@ class Arkanoid(PaiaGame):
 
         self.level_file_path = get_level_file_path(level, level_file)
 
-        self.game_result_state = GameResultState.FAIL
+        self.game_result_state = GameResultState.UN_PASSED
         self.ball_served = False
         self.scene = Scene(width=200, height=500, color="#215282", bias_x=0, bias_y=0)
         self._hard_brick = []
@@ -111,7 +111,7 @@ class Arkanoid(PaiaGame):
         return self._game_status
 
     def reset(self):
-        self.game_result_state = GameResultState.FAIL
+        self.game_result_state = GameResultState.UN_PASSED
         self.ball_served = False
         self.frame_count = 0
         self._brick = []
