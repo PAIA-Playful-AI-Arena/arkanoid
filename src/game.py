@@ -177,7 +177,7 @@ class Arkanoid(PaiaGame):
             self.game_result_state = GameResultState.PASSED
         return {
             "frame_used": self.frame_count,
-            "state": self.game_result_state,
+            "status": self.game_result_state,
             "attachment": [
                 {
                     "player_num": self.ai_clients()[0]['name'],
