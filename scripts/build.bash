@@ -1,2 +1,6 @@
-export tag=3.0.0
-docker build -t arkanoid:${tag} -f ./Dockerfile .
+export tag="latest"
+export game="arkanoid"
+
+docker build \
+-t ${game}:${tag} \
+-f ./Dockerfile .
