@@ -17,3 +17,6 @@ BRICK_URL = ASSET_IMG_URL + "brick.png"
 HARD_BRICK_URL = ASSET_IMG_URL + "hard_brick.png"
 BOARD_URL = ASSET_IMG_URL + "board.png"
 BALL_URL = ASSET_IMG_URL + "ball.png"
+
+BG_LEFT_WIDTH = 400
+INFO_TXT_X = BG_LEFT_WIDTH + 30

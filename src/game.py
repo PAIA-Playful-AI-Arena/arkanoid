@@ -8,10 +8,9 @@ from mlgame.view.decorator import check_game_progress, check_game_result
 from mlgame.view.view_model import create_text_view_data, Scene, create_scene_progress_data, create_asset_init_data, \
     create_image_view_data
 from .env import BRICK_PATH, BRICK_URL, BALL_PATH, BOARD_PATH, BOARD_URL, BALL_URL, HARD_BRICK_PATH, HARD_BRICK_URL, \
-    ASSET_LEVEL_DIR, BG_PATH, BG_URL
+    ASSET_LEVEL_DIR, BG_PATH, BG_URL, INFO_TXT_X, BG_LEFT_WIDTH
 from .game_object import Ball, Platform, Brick, HardBrick, PlatformAction, SERVE_BALL_ACTIONS
-
-BG_LEFT_WIDTH = 400
+from .utils import shift_left_with_bg_width, shift_left_with_bg_width_by_lru
 
 
 class Arkanoid(PaiaGame):
@@ -86,22 +85,24 @@ class Arkanoid(PaiaGame):
             "frame": self.frame_count,
             "status": self.get_game_status(),
             # TODO how to resolve different position
-            "ball": self._ball.pos,
+            "ball": shift_left_with_bg_width(self._ball.pos),
             "ball_served": self.ball_served,
-            "platform": self._platform.pos,
+            # "platform": self._platform.pos,
+            "platform": shift_left_with_bg_width(self._platform.pos),
             "bricks": [],
             "hard_bricks": []
         }
         for brick in self._hard_brick:
-            data_to_1p["hard_bricks"].append(brick.pos)
+            data_to_1p["hard_bricks"].append(shift_left_with_bg_width_by_lru(brick.pos))
 
         for brick in self._brick:
-            data_to_1p["bricks"].append(brick.pos)
+            data_to_1p["bricks"].append(shift_left_with_bg_width_by_lru(brick.pos))
 
         for ai_client in self.ai_clients():
             to_players_data[ai_client['name']] = data_to_1p
 
         return to_players_data
+
 
     def get_game_status(self):
         if len(self._group_brick) == 0:
@@ -161,14 +162,14 @@ class Arkanoid(PaiaGame):
         game_obj_list.extend(lines)
 
         catch_ball_text = create_text_view_data(
-            "catching ball: " + str(self._ball.hit_platform_times), 30,
+            "catching ball: " + str(self._ball.hit_platform_times), INFO_TXT_X,
             self.scene.height - 21, "#FFFFFF", "16px Arial")
 
         remain_brick_text = create_text_view_data(
-            "remain brick: " + str(len(self._brick)), 30,
+            "remain brick: " + str(len(self._brick)), INFO_TXT_X,
             self.scene.height - 41, "#FFFFFF", "16px Arial")
         remain_hard_brick_text = create_text_view_data(
-            "remain hard brick: " + str(len(self._hard_brick)), 30,
+            "remain hard brick: " + str(len(self._hard_brick)), INFO_TXT_X,
             self.scene.height - 61, "#FFFFFF", "16px Arial")
         foreground = [catch_ball_text, remain_brick_text, remain_hard_brick_text]
         # foreground.extend(lines)
