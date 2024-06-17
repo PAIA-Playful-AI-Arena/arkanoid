@@ -5,10 +5,13 @@ import pygame
 
 from mlgame.game.paia_game import GameStatus, GameResultState, PaiaGame
 from mlgame.view.decorator import check_game_progress, check_game_result
-from mlgame.view.view_model import create_text_view_data, Scene, create_scene_progress_data, create_asset_init_data
+from mlgame.view.view_model import create_text_view_data, Scene, create_scene_progress_data, create_asset_init_data, \
+    create_image_view_data
 from .env import BRICK_PATH, BRICK_URL, BALL_PATH, BOARD_PATH, BOARD_URL, BALL_URL, HARD_BRICK_PATH, HARD_BRICK_URL, \
-    ASSET_LEVEL_DIR
+    ASSET_LEVEL_DIR, BG_PATH, BG_URL
 from .game_object import Ball, Platform, Brick, HardBrick, PlatformAction, SERVE_BALL_ACTIONS
+
+BG_LEFT_WIDTH = 400
 
 
 class Arkanoid(PaiaGame):
@@ -31,7 +34,7 @@ class Arkanoid(PaiaGame):
 
         self.game_result_state = GameResultState.UN_PASSED
         self.ball_served = False
-        self.scene = Scene(width=200, height=500, color="#215282", bias_x=0, bias_y=0)
+        self.scene = Scene(width=1000, height=500, color="#54AFE3", bias_x=0, bias_y=0)
         self._hard_brick = []
         self._brick = []
         self._create_init_scene()
@@ -82,6 +85,7 @@ class Arkanoid(PaiaGame):
         data_to_1p = {
             "frame": self.frame_count,
             "status": self.get_game_status(),
+            # TODO how to resolve different position
             "ball": self._ball.pos,
             "ball_served": self.ball_served,
             "platform": self._platform.pos,
@@ -132,8 +136,11 @@ class Arkanoid(PaiaGame):
                 create_asset_init_data("hard_brick", 25, 10, HARD_BRICK_PATH, HARD_BRICK_URL),
                 create_asset_init_data("ball", 5, 5, BALL_PATH, BALL_URL),
                 create_asset_init_data("board", 40, 5, BOARD_PATH, BOARD_URL),
+                create_asset_init_data("bg", 1000, 500, BG_PATH, BG_URL),
             ],
-            "background": []
+            "background": [
+                create_image_view_data("bg", 0, 0, 1000, 500),
+            ]
         }
         return scene_init_data
 
@@ -181,7 +188,7 @@ class Arkanoid(PaiaGame):
             "attachment": [
                 {
                     "player_num": self.ai_clients()[0]['name'],
-                    "rank":1,
+                    "rank": 1,
                     "brick_remain": len(self._brick) + 2 * len(self._hard_brick),
                     "count_of_catching_ball": self._ball.hit_platform_times
 
@@ -221,9 +228,9 @@ class Arkanoid(PaiaGame):
 
     def _create_moves(self):
         self._group_move = pygame.sprite.RenderPlain()
-
-        self._ball = Ball((93, 391), pygame.Rect(0, 0, 200, 500), self._group_move)
-        self._platform = Platform((75, 400), pygame.Rect(0, 0, 200, 500), self._group_move)
+        # TODO revise init pos
+        self._ball = Ball((BG_LEFT_WIDTH+93, 391), pygame.Rect(BG_LEFT_WIDTH, 0, 200, 500), self._group_move)
+        self._platform = Platform((BG_LEFT_WIDTH+75, 400), pygame.Rect(BG_LEFT_WIDTH, 0, 200, 500), self._group_move)
 
     def _create_bricks(self):
         def get_coordinate_and_type(string):
@@ -241,8 +248,8 @@ class Arkanoid(PaiaGame):
                     0: Brick,
                     1: HardBrick,
                 }.get(type, Brick)
-
-                brick = BrickType((pos_x + offset_x, pos_y + offset_y),
+                # TODO revise position
+                brick = BrickType((BG_LEFT_WIDTH + pos_x + offset_x, pos_y + offset_y),
                                   self._group_brick)
                 self._brick_container.append(brick)
 
