@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from games.arkanoid.src.env import BG_LEFT_WIDTH
+from .env import BG_LEFT_WIDTH
 
 
 def shift_left_with_bg_width(pos: tuple) -> tuple:
