@@ -113,7 +113,7 @@ class Platform(Sprite):
         self._speed = [0, 0]
         self._init_pos = init_pos
 
-        self.rect = Rect(init_pos[0], init_pos[1], 40, 8)
+        self.rect = Rect(init_pos[0], init_pos[1], 40, 10)
         self.image = self._create_surface()
 
     def _create_surface(self):

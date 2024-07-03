@@ -4,8 +4,8 @@
   "url": "https://github.com/PAIA-Playful-AI-Arena/arkanoid",
   "description": "打磚塊(Arkanoid)可是世界上最古老經典遊戲之一，透過決定發球的位置與方向，嘗試接到回彈的球，逐一打掉所有磚塊。來挑戰看看如何在最短時間內擊破所有的磚塊，遊戲中還準備了各種不同的難度來讓你挑戰喔！",
   "logo": [
-    "./asset/logo.svg",
-    "https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/Paia-Desktop/master/media/arkanoid.svg"
+    "./asset/logo.png",
+    "https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/main/asset/logo.png"
   ],
   "user_num": {
     "min": 1,
