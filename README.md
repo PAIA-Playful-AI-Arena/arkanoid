@@ -1,98 +1,93 @@
 # Arkanoid 打磚塊
 
-<img src="https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/Paia-Desktop/master/media/arkanoid.svg" alt="logo" width="100"/> 
+<img src="https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/main/asset/logo.png" alt="logo" width="100"/> 
 
 ![arkanoid](https://img.shields.io/github/v/tag/PAIA-Playful-AI-Arena/arkanoid)
-[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
-[![MLGame](https://img.shields.io/badge/MLGame->9.5.3-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
-[![pygame](https://img.shields.io/badge/pygame-2.0.1-<COLOR>.svg)](https://github.com/pygame/pygame/releases/tag/2.0.1)
+[![Python 3.9](https://img.shields.io/badge/python->3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
+[![MLGame](https://img.shields.io/badge/MLGame->10.4.6a2-<COLOR>.svg)](https://github.com/PAIA-Playful-AI-Arena/MLGame)
 
-打磚塊(Arkanoid)可是世界上最古老經典遊戲之一，透過決定發球的位置與方向，嘗試接到回彈的球，逐一打掉所有磚塊。來挑戰看看如何在最短時間內擊破所有的磚塊，遊戲中還準備了各種不同的難度來讓你挑戰喔！
 
-<img src="https://camo.githubusercontent.com/a2a0ed0f4e012779cdf3d7fdeda6371c1a4cb3483e91c56442db5d3b56440798/68747470733a2f2f692e696d6775722e636f6d2f627271615738352e676966" height="500"/>
+打磚塊(Arkanoid)可是世界上最古老經典遊戲之一，設計你的 AI 移動板子，將球打向磚塊，破壞所有磚塊得到勝利，快來成為厲害的打磚塊大師！
 
-# 更新內容(2.3.1)
-1. 更新程式碼內容，以運行於 MLGame 9.5.*以後版本
+- `遊戲目標` &nbsp;&nbsp;&nbsp;破壞所有磚塊
+
+- `失敗條件` &nbsp;&nbsp;&nbsp;沒有接到球
+
+<img src="./asset/arkanoid.gif" height="500"/>
+
+# 更新內容(3.0.1)
+1. 更新遊戲物件尺寸，更新遊戲畫面
+2. 調整資料格式，符合 `MLGame 10.4.6a2` 以後版本
 
 ---
-
-# **基礎介紹**
-
-## **啟動方式**
+# **啟動方式**
 
 - 直接啟動 [main.py](main.py) 即可執行
 
-### **遊戲參數設定**
+# **遊戲參數設定**
 
 ```python
 # main.py 
-game = Arkanoid(difficulty="EASY", level=3)
+game = Arkanoid(level=3, level_file=None)
 ```
-
-- `difficulty`：遊戲難度
-    - `EASY`：簡單的打磚塊遊戲
-    - `NORMAL`：加入切球機制
 - `level`：指定關卡地圖。可以指定的關卡地圖皆在 `./asset/level_data/` 裡
+- `level_file`：也可以使用自己設計的關卡地圖。
+
+
+# 座標系統
+![座標系統](https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/game-web-readme/dev/arkanoid/images/side1.png)
+- 使用 pygame 座標系統，`左上角為 (0,0)`，`X軸` 以 `右` 為正，`Y軸` 以 `下` 為正，單位為 px。
+- 本遊戲所提供的座標，皆是物體`左上角`的座標
+- 螢幕大小 200 x 500
+- 板子 40 x 10
+- 球 10 x 10
+- 磚塊、硬磚塊 25 x 10
 
 ## **玩法**
 
 - 發球：左邊/右邊：A / D
 - 移動板子：左右方向鍵
 
-## **目標**
 
-1. 破壞所有磚塊。
+# 遊戲物件
 
-### **通關條件**
+## 板子
 
-1. 成功摧毀所有磚塊。
+- 綠色長方形。
+- 每一影格的移動速度是 (±5, 0)。
+- 初始位置在 (75, 400) 此數值為物件`左上角`的座標。
 
-### **失敗條件**
+## 球
 
-1. 沒有接到球。
+- 藍色正方形。
+- 每一影格的移動速度是 (±7, ±7)。
+- 球會從板子所在的位置發出，可以選擇往左或往右發球。
+- 如果在 150 影格內沒有發球，則會自動往隨機兩個方向發球。
+- 初始位置在 (93, 395) 此數值為物件`左上角`的座標。
 
-## **遊戲系統**
+## 磚塊
 
-1. 遊戲物件
+- 橘色長方形。
+- 其位置由關卡地圖決定。
 
-    - 板子
-        - 綠色長方形 寬度40,高度5
-        - 每一影格的移動速度是 (±5, 0)
-        - 初始位置在 (75, 400) 此數值為物件`左上角`的座標
+## 硬磚塊
 
-    - 球
-        - 藍色正方形 邊長5
-        - 每一影格的移動速度是 (±7, ±7)
-        - 球會從板子所在的位置發出，可以選擇往左或往右發球。
-        - 如果在 150 影格內沒有發球，則會自動往隨機兩個方向發球
-        - 初始位置在 (93, 395) 此數值為物件`左上角`的座標
-    - 磚塊 
-        - 橘色長方形 寬度25,高度10
-        - 其位置由關卡地圖決定
-    - 硬磚塊
-        - 紅色長方形 寬度25,高度10
-        - 硬磚塊要被打兩次才會被破壞。其被球打一次後，會變為一般磚塊。但是如果被加速後的球打到，則可以直接被破壞
+- 紅色長方形。
+- 硬磚塊要被打`兩次`才會被破壞。被球打到會變成一般磚塊。但是如果被`加速`後的球打到，則可以直接被破壞。
 
-2. 行動機制
-    - 左右移動板子，每次移動 5px
 
-3. 座標系統
-    - 螢幕大小 200 x 500
-    - 系統提供物件的座標資料，皆是物件`左上角`的座標
-    - 板子 40 x 5
-    - 球 5 x 5
-    - 磚塊、硬磚塊 25 x 10
+## 切球機制
+![切球機制](https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/game-web-readme/dev/arkanoid/images/side2.png)
+- 球的 `X軸` 速度會因為接球時板子的移動方向而改變：
+  1. 板子與球的移動方向`相同`，球的 `X軸` 速度會增為 `±10`，可以一次打掉硬磚塊
+  2. 板子與球的移動方向`相反`，球會被打回`反方向`，速度為 `±7`
+  3. 板子不動，球依照反彈原理反彈，速度為 `±7`
 
-4. 切球機制
+# 自訂關卡地圖
+除了 PAIA 提供的關卡，你也可以嘗試自行設計關卡，讓磚塊出現在不同位置來營造更多遊戲樂趣，也可以使用[地圖編輯器](./asset/tool/arkanoid_map_editor.exe)自行編輯地圖。
 
-   球的 x 方向速度會因為接球時板子的移動方向而改變：
-
-    - 如果板子與球的移動方向相同，則球的 x 方向速度會增為 ±10，可以一次打掉硬磚塊
-    - 如果板子不動，則球的 x 方向速度會回復為 ±7
-    - 如果板子與球的移動方向相反，則球會被打回原來來的方向，速度會回復為 ±7
-
-   此機制加入在普通難度中。
-
+# 適用賽制
+- `闖關賽`
 ---
 
 # **進階說明**
@@ -189,10 +184,10 @@ class MLPlay:
 ```json
 {
   "frame_used": 5827,
-  "state": "FINISH",
+  "status": "passed",
   "attachment": [
     {
-      "player": "1P",
+      "player_num": "1P",
       "brick_remain": 2,
       "count_of_catching_ball": 51
     }
@@ -201,9 +196,11 @@ class MLPlay:
 ```
 
 - `frame_used`：表示使用了多少個 frame
-- `state`：表示遊戲結束的狀態
-    - `FAIL`：遊戲失敗
-    - `FINISH`：遊戲完成
+- `status`：表示遊戲結束的狀態
+  - `fail`:遊戲過程出現問題
+  - `passed`:單人的情況下，成功走到終點，回傳通過
+  - `un_passed`:單人的情況下，成功走到終點，回傳不通過
+  
 - `attachment`：紀錄遊戲玩家的結果與分數等資訊
     - `player`：玩家編號
     - `brick_remain`：剩餘普通磚塊的數量 + 2 x 剩餘硬磚頭的數量

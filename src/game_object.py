@@ -162,7 +162,7 @@ class Ball(Sprite):
 
         self.hit_platform_times = 0
 
-        self.rect = Rect(*self._init_pos, 11, 11)
+        self.rect = Rect(*self._init_pos, 10, 10)
         self.image = self._create_surface()
 
         # For additional collision checking
