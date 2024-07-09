@@ -25,7 +25,7 @@
         [0, "top boundary", "上邊界"],
         [500, "bottom boundary", "下邊界"],
         [40, "platform width", "平台寬度"],
-        [8, "platform height", "平台高度"],
+        [10, "platform height", "平台高度"],
         [400, "y coordinate of platform", "平台y座標"],
         [25, "brick width", "磚塊寬度"],
         [10, "brick height", "磚塊高度"],

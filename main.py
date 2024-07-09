@@ -11,7 +11,7 @@ from src.game import Arkanoid
 FPS = 30
 if __name__ == '__main__':
     pygame.init()
-    game = Arkanoid(difficulty="EASY", level=3)
+    game = Arkanoid( level=15)
     scene_init_info_dict = game.get_scene_init_data()
     game_view = PygameView(scene_init_info_dict)
     frame_count = 0
