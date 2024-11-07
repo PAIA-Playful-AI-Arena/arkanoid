@@ -1,6 +1,6 @@
 # Arkanoid 打磚塊
 
-<img src="https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/main/asset/logo.png" alt="logo" width="100"/> 
+<img src="https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/refs/heads/main/asset/logo.png" alt="logo" width="100"/> 
 
 ![arkanoid](https://img.shields.io/github/v/tag/PAIA-Playful-AI-Arena/arkanoid)
 [![Python 3.9](https://img.shields.io/badge/python->3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
@@ -13,7 +13,7 @@
 
 - `失敗條件` &nbsp;&nbsp;&nbsp;沒有接到球
 
-<img src="./asset/arkanoid.gif" height="500"/>
+<img src="https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/refs/heads/main/asset/arkanoid.gif" height="500"/>
 
 # 更新內容(3.0.1)
 1. 更新遊戲物件尺寸，更新遊戲畫面
@@ -22,7 +22,7 @@
 ---
 # **啟動方式**
 
-- 直接啟動 [main.py](main.py) 即可執行
+- 直接啟動 [main.py](https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/refs/heads/main/main.py) 即可執行
 
 # **遊戲參數設定**
 
@@ -84,7 +84,8 @@ game = Arkanoid(level=3, level_file=None)
   3. 板子不動，球依照反彈原理反彈，速度為 `±7`
 
 # 自訂關卡地圖
-除了 PAIA 提供的關卡，你也可以嘗試自行設計關卡，讓磚塊出現在不同位置來營造更多遊戲樂趣，也可以使用[地圖編輯器](./asset/tool/arkanoid_map_editor.exe)自行編輯地圖。
+除了 PAIA 提供的關卡，你也可以嘗試自行設計關卡，讓磚塊出現在不同位置來營造更多遊戲樂趣，也可以使用[地圖編輯器](https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/refs/heads/main/asset/tool/arkanoid_map_editor.exe)自行編輯地圖。
+
 
 # 適用賽制
 - `闖關賽`
@@ -134,7 +135,7 @@ class MLPlay:
 
 ## 遊戲資訊
 
-- scene_info 的資料格式如下
+- `scene_info` 的資料格式如下
 
 ```json
 {
@@ -221,17 +222,17 @@ class MLPlay:
 ```
 代表這個地圖檔有三個磚塊
 
-## [地圖編輯器](./asset/tool/arkanoid_map_editor.exe)
+## [地圖編輯器](https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/refs/heads/main/asset/tool/arkanoid_map_editor.exe)
 由台南市教育局資訊教育中心老師開發提供
 
-![地圖編輯器-01](asset/github/打磚塊-地圖編輯器-01.png)
+![地圖編輯器-01](https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/refs/heads/main/asset/github/打磚塊-地圖編輯器-01.png)
 
-![地圖編輯器-02](asset/github/打磚塊-地圖編輯器-02.png)
+![地圖編輯器-02](https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/refs/heads/main/asset/github/打磚塊-地圖編輯器-02.png)
 
 
 ## 關於球的物理
 
 球在移動中，下一幀會穿牆的時候，會移動至球的路徑與碰撞表面的交點。
-![球的反彈機制](./asset/github/打磚塊-球的物理.png)
+![球的反彈機制](https://raw.githubusercontent.com/PAIA-Playful-AI-Arena/arkanoid/refs/heads/main/asset/github/打磚塊-球的物理.png)
 
 ---
